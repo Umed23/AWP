@@ -1,0 +1,79 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" Inherits="YourNamespace.CalendarDemo" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Calendar Demo</title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <h2>Calendar Demo</h2>
+
+            <!-- a) Display messages in a calendar control -->
+            <asp:Calendar ID="calMessages" runat="server" DayRender="calMessages_DayRender" />
+
+            <hr />
+
+            <!-- c) Selected day in a calendar control using style -->
+            <asp:Calendar ID="calSelectedDay" runat="server" onselectionchanged="calSelectedDay_SelectionChanged" />
+
+            <hr />
+
+            <!-- d) Difference between two calendar dates -->
+            <asp:Calendar ID="calStartDate" runat="server" />
+            <asp:Calendar ID="calEndDate" runat="server" />
+            <asp:Button ID="btnCalculateDifference" runat="server" Text="Calculate Difference" OnClick="btnCalculateDifference_Click" />
+            <br />
+            <asp:Label ID="lblDateDifference" runat="server"></asp:Label>
+        </div>
+    </form>
+</body>
+</html>
+code behind:
+  using System;
+using System.Web.UI.WebControls;
+using System.Web;
+using System.Linq;
+
+namespace YourNamespace
+{
+    public partial class CalendarDemo : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (calMessages.SelectedDate == new DateTime(2023, 12, 25)) {
+                calMessages.Caption = "Merry Christmas";
+            } 
+        }
+
+        // ^^ a) Display messages in a calendar control
+       
+
+        // b) Selected day in a calendar control using style
+        protected void calSelectedDay_SelectionChanged(object sender, EventArgs e)
+        {
+            calSelectedDay.SelectedDayStyle.BackColor = System.Drawing.Color.Red;
+        }
+
+        // c) Difference between two calendar dates
+        protected void btnCalculateDifference_Click(object sender, EventArgs e)
+        {
+            DateTime startDate = calStartDate.SelectedDate;
+            DateTime endDate = calEndDate.SelectedDate;
+
+            if (startDate != DateTime.MinValue && endDate != DateTime.MinValue)
+            {
+                TimeSpan difference = endDate - startDate;
+                lblDateDifference.Text = $"The difference is {difference.Days} days.";
+            }
+            else
+            {
+                lblDateDifference.Text = "Please select both start and end dates.";
+            }
+        }
+    }
+}
+
+
