@@ -1,0 +1,125 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" Inherits="WebApplication8.WebForm1" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Font and Country Code Demo</title>
+    <style>
+        .labelStyle {
+            margin-top: 20px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <h2>Font and Country Code Demo</h2>
+
+        <!-- Group 1: Font Style -->
+        <div>
+            <label>Font Size:</label>
+            <asp:RadioButton ID="rbSmall" runat="server" Text="Small" GroupName="fontGroup1" OnCheckedChanged="RadioButton_CheckedChanged" AutoPostBack="True" />
+            <asp:RadioButton ID="rbMedium" runat="server" Text="Medium" GroupName="fontGroup1" OnCheckedChanged="RadioButton_CheckedChanged" AutoPostBack="True" />
+            <asp:RadioButton ID="rbLarge" runat="server" Text="Large" GroupName="fontGroup1" OnCheckedChanged="RadioButton_CheckedChanged" AutoPostBack="True" />
+        </div>
+
+        <!-- Group 2: Font Face -->
+        <div>
+            <label>Font Face:</label>
+            <asp:RadioButton ID="rbArial" runat="server" Text="Arial" GroupName="fontGroup2" OnCheckedChanged="RadioButton_CheckedChanged" AutoPostBack="True" />
+            <asp:RadioButton ID="rbVerdana" runat="server" Text="Verdana" GroupName="fontGroup2" OnCheckedChanged="RadioButton_CheckedChanged" AutoPostBack="True" />
+            <asp:RadioButton ID="rbTimesNewRoman" runat="server" Text="Times New Roman" GroupName="fontGroup2" OnCheckedChanged="RadioButton_CheckedChanged" AutoPostBack="True" />
+        </div>
+
+        <!-- DropDownList for Country -->
+        <div>
+            <label for="ddlCountries">Select Country:</label>
+            <asp:DropDownList ID="ddlCountries" runat="server" OnSelectedIndexChanged="ddlCountries_SelectedIndexChanged" AutoPostBack="True">
+                <asp:ListItem Text="Select" Value="" />
+                <asp:ListItem Text="United States" Value="US" />
+                <asp:ListItem Text="United Kingdom" Value="UK" />
+                <asp:ListItem Text="Canada" Value="CA" />
+            </asp:DropDownList>
+        </div>
+
+        <!-- Label for Displaying Font Changes -->
+        <asp:Label ID="lblDisplay" runat="server" CssClass="labelStyle"></asp:Label>
+
+        <!-- TextBox for Displaying Country Code -->
+        <div>
+            <label for="txtCountryCode">Country Code:</label>
+            <asp:TextBox ID="txtCountryCode" runat="server" ReadOnly="true"></asp:TextBox>
+        </div>
+    </form>
+</body>
+</html>
+
+
+using System;
+
+namespace WebApplication8
+{
+    public partial class WebForm1 : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack==true)
+            {
+                // Set initial values for the font size and font face
+                lblDisplay.Font.Size = 14;
+                lblDisplay.Font.Name = "Arial";
+            }
+        }
+
+        protected void RadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            // Handle font size and font face changes based on the selected Radio Buttons
+            SetFontStyle();
+        }
+
+        private void SetFontStyle()
+        {
+            // Set font size based on the selected Radio Button in group 1
+            if (rbSmall.Checked)
+                lblDisplay.Font.Size = 10;
+            else if (rbMedium.Checked)
+                lblDisplay.Font.Size = 14;
+            else if (rbLarge.Checked)
+                lblDisplay.Font.Size = 18;
+
+            // Set font face based on the selected Radio Button in group 2
+            if (rbArial.Checked)
+                lblDisplay.Font.Name = "Arial";
+            else if (rbVerdana.Checked)
+                lblDisplay.Font.Name = "Verdana";
+            else if (rbTimesNewRoman.Checked)
+                lblDisplay.Font.Name = "Times New Roman";
+        }
+
+        protected void ddlCountries_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Display the country code in the TextBox based on the selected country
+            string selectedCountry = ddlCountries.SelectedValue;
+            string countryCode = GetCountryCode(selectedCountry);
+            txtCountryCode.Text = countryCode;
+        }
+
+        private string GetCountryCode(string country)
+        {
+            switch (country)
+            {
+                case "US":
+                    return "+1";
+                case "UK":
+                    return "+44";
+                case "CA":
+                    return "+82";
+                default:
+                    return string.Empty;
+            }
+        }
+    }
+}
