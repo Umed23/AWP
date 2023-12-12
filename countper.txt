@@ -1,0 +1,62 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CountPage.aspx.cs" Inherits="YourNamespace.CountPage" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Submit Counter</title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <h2>Submit Counter</h2>
+
+            <!-- Button to submit the form -->
+            <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" />
+
+            <!-- Label to display the submit count -->
+            <asp:Label ID="lblSubmitCount" runat="server" Text="Submit Count: 0"></asp:Label>
+        </div>
+    </form>
+</body>
+</html>
+
+
+ using System;
+
+namespace YourNamespace
+{
+    public partial class CountPage : System.Web.UI.Page
+    {
+        // Variable to store the submit count
+        private int submitCount;
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            // Check if the submit count is stored in the session
+            if (Session["SubmitCount"] != null)
+            {
+                submitCount = (int)Session["SubmitCount"];
+            }
+            else
+            {
+                submitCount = 0;
+            }
+
+            // Display the current submit count
+            lblSubmitCount.Text = "Submit Count: " + submitCount;
+        }
+
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            // Increment the submit count
+            submitCount++;
+
+            // Update the session variable with the new submit count
+            Session["SubmitCount"] = submitCount;
+
+            // Display the updated submit count
+            lblSubmitCount.Text = "Submit Count: " + submitCount;
+        }
+    }
+}
