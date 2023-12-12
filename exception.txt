@@ -1,0 +1,108 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" Inherits="WebApplication8.WebForm1" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exception Demo</title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <h2>Exception Demo</h2>
+
+        <div>
+            <!-- DivideByZeroException Demo -->
+            <label for="numerator">Enter Numerator:</label>
+            <asp:TextBox ID="txtNumerator" runat="server"></asp:TextBox>
+            <br />
+            <label for="denominator">Enter Denominator:</label>
+            <asp:TextBox ID="txtDenominator" runat="server"></asp:TextBox>
+            <br />
+            <asp:Button ID="btnDivide" runat="server" Text="Divide" OnClick="btnDivide_Click" />
+            <br />
+            <asp:Label ID="lblDivideResult" runat="server" ForeColor="Red"></asp:Label>
+            <hr />
+
+            <!-- IndexOutOfRangeException Demo -->
+            <label for="index">Enter Index:</label>
+            <asp:TextBox ID="txtIndex" runat="server"></asp:TextBox>
+            <br />
+            <asp:Button ID="btnAccessArray" runat="server" Text="Access Array" OnClick="btnAccessArray_Click" />
+            <br />
+            <asp:Label ID="lblArrayResult" runat="server" ForeColor="Red"></asp:Label>
+        </div>
+    </form>
+</body>
+</html>
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace WebApplication8
+{
+    public partial class WebForm1 : System.Web.UI.Page
+    {
+            protected void btnDivide_Click(object sender, EventArgs e)
+            {
+                try
+                {
+                    int numerator = int.Parse(txtNumerator.Text);
+                    int denominator = int.Parse(txtDenominator.Text);
+
+                    int result = DivideNumbers(numerator, denominator);
+                    lblDivideResult.Text = $"Result of division: {result}";
+                }
+                catch (DivideByZeroException ex)
+                {
+                    lblDivideResult.Text = "Error: " + ex.Message;
+                }
+                catch (FormatException)
+                {
+                    lblDivideResult.Text = "Error: Please enter valid numbers.";
+                }
+            }
+
+            private int DivideNumbers(int numerator, int denominator)
+            {
+                if (denominator == 0)
+                {
+                    throw new DivideByZeroException("Cannot divide by zero.");
+                }
+
+                return numerator / denominator;
+            }
+
+            protected void btnAccessArray_Click(object sender, EventArgs e)
+            {
+                try
+                {
+                    int[] numbers = { 1, 2, 3, 4, 5 };
+                    int index = int.Parse(txtIndex.Text);
+
+                    int value = AccessArrayElement(numbers, index);
+                    lblArrayResult.Text = $"Value at index {index}: {value}";
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    lblArrayResult.Text = "Error: Index out of range.";
+                }
+                catch (FormatException)
+                {
+                    lblArrayResult.Text = "Error: Please enter a valid index.";
+                }
+            }
+
+            private int AccessArrayElement(int[] numbers, int index)
+            {
+                return numbers[index];
+            }
+        }
+    }
+
