@@ -1,0 +1,131 @@
+form1.cs
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Practical1
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+        public static int val = 0;
+        private void button3_Click(object sender, EventArgs e)
+        {
+            val = int.Parse(textBox1.Text);
+            label2.Text = "Result:" + (val * val).ToString();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (textBox1.Text != "")
+            {
+                val = int.Parse(textBox1.Text);
+                int fact = 1;
+                for (int i = 1; i <= val; i++)
+                {
+                    fact = fact * i;
+                }
+                label2.Text = "Result:" + fact.ToString();
+            }
+            }
+
+            private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            val = int.Parse(textBox1.Text);
+            MoneyConversion f2 = new MoneyConversion();
+            f2.ShowDialog();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            int n1 = 0, n2 = 1, n3, i;
+            val = int.Parse(textBox1.Text);
+            label2.Text = (n1 + "\n" + n2 + "\n");
+            for (i = 2; i < val; ++i)
+            {
+                n3 = n1 + n2;
+                label2.Text += n3.ToString() + "\n";
+                n1 = n2;
+                n2 = n3;
+            }
+
+        }
+    }
+}
+
+form2.cs
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Practical1
+{
+    public partial class MoneyConversion : Form
+    {
+        public MoneyConversion()
+        {
+            InitializeComponent();
+        }
+        public Double user = Form1.val;
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+    private void MoneyConversion_Load_1(object sender, EventArgs e)
+    {
+        comboBox3.Items.Add("IndianRupee");
+        comboBox3.Items.Add("Dollar");
+        comboBox3.Items.Add("japanese");
+        comboBox4.Items.Add("IndianRupee");
+        comboBox4.Items.Add("Dollar");
+        comboBox4.Items.Add("japanese");
+            label6.Text = user.ToString();
+    }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            Double Dollar, Rupee, Rupeeval = 82.23;
+            if (comboBox3.SelectedItem.Equals("IndianRupee") && comboBox4.SelectedItem.Equals("Dollar"))
+            {
+                Rupee = user;
+                Dollar = Rupee / Rupeeval;
+                label6.Text = "Result:" + Dollar;
+            }
+            else
+           if (comboBox3.SelectedItem.Equals("Dollar") && comboBox4.SelectedItem.Equals("IndianRupee"))
+            {
+                Dollar = user;
+                Rupee = Dollar * Rupeeval;
+                label6.Text = "Result:" + Rupee;
+            }
+            
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+    }
+}
