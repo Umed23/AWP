@@ -1,0 +1,117 @@
+%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" Inherits="WebApplication8.WebForm1" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>String Operations Demo</title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <h2>String Operations Demo</h2>
+
+        <div>
+            <!-- Concatenation -->
+            <label for="concatStr1">String 1:</label>
+            <asp:TextBox ID="txtConcatStr1" runat="server"></asp:TextBox>
+            <br />
+            <label for="concatStr2">String 2:</label>
+            <asp:TextBox ID="txtConcatStr2" runat="server"></asp:TextBox>
+            <br />
+            <asp:Button ID="btnConcatenate" runat="server" Text="Concatenate" OnClick="btnConcatenate_Click" />
+            <br />
+            <asp:Label ID="lblConcatResult" runat="server"></asp:Label>
+            <hr />
+
+            <!-- Length -->
+            <label for="lengthStr">Enter a String:</label>
+            <asp:TextBox ID="txtLengthStr" runat="server"></asp:TextBox>
+            <br />
+            <asp:Button ID="btnStringLength" runat="server" Text="Get Length" OnClick="btnStringLength_Click" />
+            <br />
+            <asp:Label ID="lblLengthResult" runat="server"></asp:Label>
+            <hr />
+
+            <!-- Uppercase and Lowercase -->
+            <label for="caseStr">Enter a String:</label>
+            <asp:TextBox ID="txtCaseStr" runat="server"></asp:TextBox>
+            <br />
+            <asp:Button ID="btnUpperCase" runat="server" Text="Uppercase" OnClick="btnUpperCase_Click" />
+            <asp:Button ID="btnLowerCase" runat="server" Text="Lowercase" OnClick="btnLowerCase_Click" />
+            <br />
+            <asp:Label ID="lblCaseResult" runat="server"></asp:Label>
+        </div>
+    </form>
+</body>
+</html>
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace WebApplication8
+{
+    public partial class WebForm1 : System.Web.UI.Page
+    {
+            
+
+            protected void btnConcatenate_Click(object sender, EventArgs e)
+            {
+                string str1 = txtConcatStr1.Text;
+                string str2 = txtConcatStr2.Text;
+
+                string result = ConcatenateStrings(str1, str2);
+                lblConcatResult.Text = "Concatenated String: " + result;
+            }
+
+            private string ConcatenateStrings(string str1, string str2)
+            {
+                return str1 + str2;
+            }
+
+            protected void btnStringLength_Click(object sender, EventArgs e)
+            {
+                string inputString = txtLengthStr.Text;
+
+                int length = GetStringLenght(inputString);
+                lblLengthResult.Text = "String Length: " + length;
+            }
+
+            private int GetStringLenght(string inputString)
+            {
+                return inputString.Length;
+            }
+
+            protected void btnUpperCase_Click(object sender, EventArgs e)
+            {
+                string inputString = txtCaseStr.Text;
+
+                string result = ConvertToUpperCase(inputString);
+                lblCaseResult.Text = "Uppercase: " + result;
+            }
+
+            private string ConvertToUpperCase(string inputString)
+            {
+                return inputString.ToUpper();
+            }
+
+            protected void btnLowerCase_Click(object sender, EventArgs e)
+            {
+                string inputString = txtCaseStr.Text;
+
+                string result = ConvertToLowerCase(inputString);
+                lblCaseResult.Text = "Lowercase: " + result;
+            }
+
+            private string ConvertToLowerCase(string inputString)
+            {
+                return inputString.ToLower();
+            }
+        }
+    }
