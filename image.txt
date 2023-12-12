@@ -1,0 +1,141 @@
+aspx file :
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="DemoPage.aspx.cs" Inherits="YourNamespace.DemoPage" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>ASP.NET Controls Demo</title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <h2>ASP.NET Controls Demo</h2>
+
+            <!-- ListBox -->
+            <asp:ListBox ID="ListBox1" runat="server" SelectionMode="Multiple">
+                <asp:ListItem Text="Item 1" />
+                <asp:ListItem Text="Item 2" />
+                <asp:ListItem Text="Item 3" />
+            </asp:ListBox>
+            <br />
+            <!-- Button to display selected items from ListBox -->
+            <asp:Button ID="btnDisplay" runat="server" Text="Display Selected Items" OnClick="btnDisplay_Click" />
+            <br />
+
+            <!-- TextBox to display selected items -->
+            <asp:TextBox ID="txtSelectedItems" runat="server" Width="200px"></asp:TextBox>
+            <br />
+
+            <!-- DropDownList1 -->
+            <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged">
+                <asp:ListItem Text="Option 1" />
+                <asp:ListItem Text="Option 2" />
+                <asp:ListItem Text="Option 3" />
+            </asp:DropDownList>
+            <br />
+
+            <!-- Label to display selected item from DropDownList1 -->
+            <asp:Label ID="lblSelectedOption" runat="server" Text="Selected Option:"></asp:Label>
+            <br />
+
+            <!-- DropDownList2 for font size -->
+            <asp:DropDownList ID="DropDownList2" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DropDownList2_SelectedIndexChanged">
+                <asp:ListItem Text="Small" Value="10" />
+                <asp:ListItem Text="Medium" Value="14" />
+                <asp:ListItem Text="Large" Value="18" />
+            </asp:DropDownList>
+            <br />
+
+            <!-- Label for changing font size -->
+            <asp:Label ID="lblFontSize" runat="server" Text="Change Font Size"></asp:Label>
+            <br />
+
+            <!-- Image control -->
+            <asp:Image ID="imgPhoto" runat="server" ImageUrl="path/to/default/photo.jpg" Height="100px" Width="100px" />
+            <br />
+
+            <!-- Checkboxes for special formatting -->
+            <asp:CheckBox ID="chkUnderline" runat="server" Text="Underline" OnCheckedChanged="FormatCheckBox_CheckedChanged" AutoPostBack="true" />
+            <asp:CheckBox ID="chkBold" runat="server" Text="Bold" OnCheckedChanged="FormatCheckBox_CheckedChanged" AutoPostBack="true" />
+            <asp:CheckBox ID="chkItalic" runat="server" Text="Italic" OnCheckedChanged="FormatCheckBox_CheckedChanged" AutoPostBack="true" />
+            <br />
+
+            <!-- RadioButtons for label color -->
+            <asp:RadioButton ID="rbRed" runat="server" Text="Red" GroupName="ColorGroup" OnCheckedChanged="ColorRadioButton_CheckedChanged" AutoPostBack="true" />
+            <asp:RadioButton ID="rbBlue" runat="server" Text="Blue" GroupName="ColorGroup" OnCheckedChanged="ColorRadioButton_CheckedChanged" AutoPostBack="true" />
+            <asp:RadioButton ID="rbGreen" runat="server" Text="Green" GroupName="ColorGroup" OnCheckedChanged="ColorRadioButton_CheckedChanged" AutoPostBack="true" />
+            <br />
+
+            <!-- Label for special formatting and color -->
+            <asp:Label ID="lblFormattedText" runat="server" Text="Sample Text"></asp:Label>
+
+        </div>
+    </form>
+</body>
+</html>
+
+code behind file:
+using System;
+
+namespace YourNamespace
+{
+    public partial class DemoPage : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnDisplay_Click(object sender, EventArgs e)
+        {
+            // Display selected items from ListBox in TextBox
+            txtSelectedItems.Text = "";
+            foreach (ListItem item in ListBox1.Items)
+            {
+                if (item.Selected)
+                {
+                    txtSelectedItems.Text += item.Text + ", ";
+                }
+            }
+        }
+
+        protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Display selected item from DropDownList1 in Label
+            lblSelectedOption.Text = "Selected Option: " + DropDownList1.SelectedValue;
+        }
+
+        protected void DropDownList2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Change font size of Label according to the selected font size
+            int fontSize = Convert.ToInt32(DropDownList2.SelectedValue);
+            lblFontSize.Style["font-size"] = fontSize + "px";
+        }
+
+        protected void FormatCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            // Apply special formatting to the Label text
+            lblFormattedText.Font.Underline = chkUnderline.Checked;
+            lblFormattedText.Font.Bold = chkBold.Checked;
+            lblFormattedText.Font.Italic = chkItalic.Checked;
+        }
+
+        protected void ColorRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            // Apply color to the Label text based on the selected RadioButton
+            if (rbRed.Checked)
+            {
+                lblFormattedText.ForeColor = System.Drawing.Color.Red;
+            }
+            else if (rbBlue.Checked)
+            {
+                lblFormattedText.ForeColor = System.Drawing.Color.Blue;
+            }
+            else if (rbGreen.Checked)
+            {
+                lblFormattedText.ForeColor = System.Drawing.Color.Green;
+            }
+        }
+    }
+}
