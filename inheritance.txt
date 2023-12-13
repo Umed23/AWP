@@ -1,0 +1,74 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Collections;
+using System.Threading.Tasks;
+
+namespace PRACTICAL4
+{
+    class Program
+    {
+        interface iface1
+        {
+            void languages();
+        }
+        class a : iface1
+        {
+            public void languages()
+            {
+                ArrayList My_list = new ArrayList();
+                My_list.Add("C");
+                My_list.Add("C++");
+                My_list.Add("C#");
+                My_list.Add("Java");
+                Console.WriteLine("Languages learned by UMED LADUNATH JOGI:");
+                foreach (var element in My_list)
+                {
+                    Console.WriteLine(element);
+                }
+            }
+        }
+        interface iface2
+        {
+            void courses();
+        }
+        class b : iface2
+        {
+            public void courses()
+            {
+                ArrayList My_list = new ArrayList();
+                My_list.Add("System Design");
+                My_list.Add("Phyton");
+                My_list.Add("C++");
+                My_list.Add("Java");
+                Console.WriteLine("\n Courses provided by Mks:");
+                foreach (var elements in My_list)
+                {
+                    Console.WriteLine(elements);
+                }
+            }
+        }
+        class c : iface1, iface2
+        {
+            a obj1 = new a();
+            b obj2 = new b();
+            public void languages()
+            {
+                obj1.languages();
+            }
+            public void courses()
+            {
+                obj2.courses();
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            c obj = new c();
+            obj.languages();
+            obj.courses();
+            Console.ReadLine();
+        }
+    }
+}
