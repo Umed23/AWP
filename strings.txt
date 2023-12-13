@@ -115,3 +115,36 @@ namespace WebApplication8
             }
         }
     }
+
+
+2nd method:
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace practical__5
+{
+    public partial class WebForm1 : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            Label1.Text = "This is a random sample String by UMED LADUNATH JOGI";
+            string text = Label1.Text;
+            Label2.Text = "Clone():" + text.Clone();
+            Label3.Text = "CompareTo():Result when compared with '''+text+''':" +
+           text.CompareTo(Label2.Text);
+            Label4.Text = "Contains(): Result when checked for 'random' in '''+text+''':" +
+           text.Contains("random");
+            Label5.Text = "EndsWith(): Result when checked for the '''+text+''' to end with 'String':" + text.EndsWith("String");
+ Label6.Text = "Indexof(): Index of the string'sample' in the string '''+text+''':" +
+text.IndexOf("sample");
+            Label7.Text = "ToLower():" + Label1.Text.ToLower();
+            Label8.Text = "ToUpper():" + Label1.Text.ToUpper();
+            Label9.Text = "Substring():" + Label1.Text.Substring(text.IndexOf("A"), 1);
+
+        }
+    }
+}
