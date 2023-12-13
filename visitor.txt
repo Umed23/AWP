@@ -1,0 +1,61 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" Inherits="WebApplication9.WebForm1" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Visitor Counter</title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <h2>Visitor Counter</h2>
+
+        <div>
+            <asp:Label ID="lblVisitorCount" runat="server" Text=""></asp:Label>
+        </div>
+    </form>
+</body>
+</html>
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace WebApplication9
+{
+        public partial class WebForm1 : System.Web.UI.Page
+        {
+            protected void Page_Load(object sender, EventArgs e)
+            {
+                if (!IsPostBack)
+                {
+                    // On the initial load, increment and display the visitor count
+                    IncrementAndDisplayVisitorCount();
+                }
+            }
+
+            private void IncrementAndDisplayVisitorCount()
+            {
+                // Check if the visitor count is stored in the session
+                if (Session["VisitorCount"] == null)
+                {
+                    // If not, initialize the count to 1
+                    Session["VisitorCount"] = 1;
+                }
+                else
+                {
+                    // If yes, increment the count
+                    Session["VisitorCount"] = (int)Session["VisitorCount"] + 1;
+                }
+
+                // Display the visitor count in the label
+                lblVisitorCount.Text = $"Number of Visitors: {Session["VisitorCount"]}";
+            }
+        }
+    }
