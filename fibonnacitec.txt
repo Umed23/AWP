@@ -1,0 +1,88 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+namespace WindowsFormsApp3
+{
+    public partial class Form1 : Form
+    {
+        private int val;
+        private string vow;
+        private string orgstring, revsrting;
+        public Form1()
+        {
+            InitializeComponent();
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            int n1 = 0, n2 = 1, n3, i;
+            val = int.Parse(textBox1.Text);
+            label2.Text = (n1 + "\n" + n2 + "\n");
+            for (i = 2; i < val; ++i)
+            {
+                n3 = n1 + n2;
+                label2.Text += n3.ToString() + "\n";
+                n1 = n2;
+                n2 = n3;
+            }
+        }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            int flag = 0;
+            val = int.Parse(textBox1.Text);
+            for (int i = 1; i <= val; i++)
+            {
+                if (val % i == 0)
+                {
+                    flag++;
+                }
+            }
+            if (flag == 2)
+            {
+             label2.Text = "Result: " + val + " is a prime Number!";
+            }
+            else
+            {
+       label2.Text = "Result: " + val + " is a not a prime Number!";
+            }
+        }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            vow = textBox1.Text.ToLower();
+            List<string> Vowel = new List<string>();
+            Vowel.Add("a");
+            Vowel.Add("e");
+            Vowel.Add("i");
+            Vowel.Add("o");
+            Vowel.Add("u");
+            foreach (string a in Vowel)
+            {
+               if (vow == "a" || vow == "e" || vow == "i" || vow == "o" || vow == "u")
+                { 
+                    label2.Text = "Result: " + vow + " is a Vowel";
+                    break;
+                }
+                else
+                {
+                    label2.Text = "Result: " + vow + " is not a Vowel";
+                    break;
+                }
+            }
+        }
+        private void button4_Click(object sender, EventArgs e)
+        {
+            orgstring = textBox1.Text;
+            char[] c = orgstring.ToCharArray();
+            Array.Reverse(c);
+            label2.Text = new string(c);
+        }
+        private void Form1_Load(object sender, EventArgs e)
+        {
+        }
+    }
+}
