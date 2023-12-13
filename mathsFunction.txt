@@ -1,0 +1,47 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+                Console.WriteLine(Math.Abs(-10));
+
+                Console.WriteLine(Math.Sqrt(25));
+
+                Console.WriteLine(Math.Pow(2, 4));
+
+                Console.WriteLine(Math.Max(10, 20));
+
+                Console.WriteLine(Math.Min(10, 20));
+
+                Console.WriteLine(Math.Round(1.56));
+
+                Console.WriteLine(Math.PI);
+
+                Console.WriteLine(Math.Ceiling(3.2));
+
+                Console.WriteLine(Math.Floor(3.6));
+
+                Console.WriteLine(Math.Log(5));
+
+                Console.WriteLine(Math.Log10(5));
+
+                Console.WriteLine(Math.Exp(2));
+
+                Console.WriteLine(Math.BigMul(5, 8));
+
+                Console.WriteLine(Math.Truncate(5.23));
+
+
+                Console.Read();
+
+            }
+        }
+    }
